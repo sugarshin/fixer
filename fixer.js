@@ -40,8 +40,8 @@
         };
       })();
 
-      Fixer.prototype._default = {
-        offset: 0,
+      Fixer.prototype._defaults = {
+        offset: null,
         bindScroll: true,
         onFixed: function(el) {},
         onNormalized: function(el) {}
@@ -50,7 +50,11 @@
       Fixer.prototype._configure = function(el, opts) {
         this.$el = $(el);
         this.opts = $.extend({}, this._defaults, opts);
-        this._offsetTop = this.$el.offset().top;
+        if (this.opts.offset != null) {
+          this._offsetTop = this.opts.offset;
+        } else {
+          this._offsetTop = this.$el.offset().top;
+        }
         this._defaultPosition = this.$el.css('position');
         return this._namespace = this._getRandomString();
       };
@@ -81,7 +85,7 @@
       };
 
       Fixer.prototype.onScroll = function() {
-        if (_$window.scrollTop() > this._offsetTop + this.opts.offset) {
+        if (_$window.scrollTop() > this._offsetTop) {
           return this.positionFixed();
         } else {
           return this.positionDefault();

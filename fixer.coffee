@@ -22,8 +22,8 @@ do (root = this, factory = ($) ->
           string += chars.substring(randomNumber, randomNumber + 1)
         return string
 
-    _default:
-      offset: 0
+    _defaults:
+      offset: null
       bindScroll: true
       onFixed: (el) ->
       onNormalized: (el) ->
@@ -31,7 +31,10 @@ do (root = this, factory = ($) ->
     _configure: (el, opts) ->
       @$el = $(el)
       @opts = $.extend {}, @_defaults, opts
-      @_offsetTop = @$el.offset().top
+      if @opts.offset?
+        @_offsetTop = @opts.offset
+      else
+        @_offsetTop = @$el.offset().top
       @_defaultPosition = @$el.css 'position'
       @_namespace = @_getRandomString()
 
@@ -50,7 +53,7 @@ do (root = this, factory = ($) ->
     setOffset: (val) -> @_offsetTop = val
 
     onScroll: =>
-      if _$window.scrollTop() > @_offsetTop + @opts.offset
+      if _$window.scrollTop() > @_offsetTop
         @positionFixed()
       else
         @positionDefault()
