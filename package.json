@@ -1,6 +1,6 @@
 {
   "name": "fixer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Fixer",
   "repository": "git@github.com:sugarshin/fixer.git",
   "main": "fixer.js",

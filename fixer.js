@@ -68,13 +68,13 @@
         }
       }
 
-      Fixer.prototype.positionFixed = function() {
+      Fixer.prototype.fixPosition = function() {
         var _base;
         this.$el.css('position', 'fixed');
         return typeof (_base = this.opts).onFixed === "function" ? _base.onFixed(this.el) : void 0;
       };
 
-      Fixer.prototype.positionDefault = function() {
+      Fixer.prototype.normalizePosition = function() {
         var _base;
         this.$el.css('position', this._defaultPosition);
         return typeof (_base = this.opts).onNormalized === "function" ? _base.onNormalized(this.el) : void 0;
@@ -86,9 +86,9 @@
 
       Fixer.prototype.onScroll = function() {
         if (_$window.scrollTop() > this._offsetTop) {
-          return this.positionFixed();
+          return this.fixPosition();
         } else {
-          return this.positionDefault();
+          return this.normalizePosition();
         }
       };
 

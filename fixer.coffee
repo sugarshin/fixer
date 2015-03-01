@@ -42,11 +42,11 @@ do (root = this, factory = ($) ->
       @_configure @el, opts
       @events() if @opts.bindScroll
 
-    positionFixed: ->
+    fixPosition: ->
       @$el.css 'position', 'fixed'
       @opts.onFixed?(@el)
 
-    positionDefault: ->
+    normalizePosition: ->
       @$el.css 'position', @_defaultPosition
       @opts.onNormalized?(@el)
 
@@ -54,9 +54,9 @@ do (root = this, factory = ($) ->
 
     onScroll: =>
       if _$window.scrollTop() > @_offsetTop
-        @positionFixed()
+        @fixPosition()
       else
-        @positionDefault()
+        @normalizePosition()
 
     events: ->
       _$window.on "scroll.fixer:#{@_namespace}", @onScroll
